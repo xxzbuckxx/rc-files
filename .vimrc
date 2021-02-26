@@ -1,3 +1,48 @@
+#       .__                          
+# ___  _|__| _____   _______   ____  
+# \  \/ /  |/     \  \_  __ \_/ ___\ 
+#  \   /|  |  Y Y  \  |  | \/\  \___ 
+#   \_/ |__|__|_|  /  |__|    \___  >
+#                \/               \/ 
+
+" -------------- Plugins --------------
+
+call plug#begin('~/.vim/plugged')
+
+" Git Wrapper
+Plug 'tpope/vim-fugitive'
+
+" Universal Vim Defaults
+Plug 'tpope/vim-sensible'
+
+" Comment (gcc)
+Plug 'tpope/vim-commentary'
+
+" Conquer of Completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" PEP8 Python indentation
+Plug 'vim-scripts/indentpython.vim'
+
+" Javascript syntax
+Plug 'maksimr/vim-jsbeautify'
+
+" Startify UI
+Plug 'mhinz/vim-startify'
+
+" VS Code looking theme
+Plug 'tomasiser/vim-code-dark'
+
+" Vim airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Highlight after yank
+Plug 'machakann/vim-highlightedyank'
+
+call plug#end()
+ 
+" -------------- Buffer Config  --------------
 syntax on
 
 let mapleader =" "
@@ -13,23 +58,11 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
+set splitbelow 
+set encoding=utf-8
 
-call plug#begin('~/.vim/plugged')
-Plug 'HenryNewcomer/vim-theme-papaya'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-commentary'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'vim-scripts/indentpython.vim'
-" Plug 'vim-syntastic/syntastic'
-Plug 'mhinz/vim-startify'
-Plug 'tomasiser/vim-code-dark'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-call plug#end()
- 
+" Colorscheme
 colorscheme codedark
-
 let g:airline_theme='minimalist'
 
 "split navigations
@@ -38,6 +71,10 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" -------------- Language Specific Config --------------
+
+    " Python
+
 au BufNewFile,BufRead *.py
     \ set expandtab       |" replace tabs with spaces
     \ set autoindent      |" copy indent when starting a new line
@@ -45,26 +82,19 @@ au BufNewFile,BufRead *.py
     \ set softtabstop=4
     \ set shiftwidth=4
 
-" coc Autocomplete
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+" Runs Python Code in Terminal
+autocmd FileType python map <buffer> <F9> :w<CR>:exec '!clear; python' shellescape(@%, 1)<CR>
+
+
+    " Javascript
 
 au BufNewFile,BufRead *.js, *.html, *.css
     \ set tabstop=2
     \ set softtabstop=2
     \ set shiftwidth=2
 
-set encoding=utf-8
 
-" Splits to Bottom
-set splitbelow 
-
-" Runs Python Code in Terminal
-autocmd FileType python map <buffer> <F9> :w<CR>:exec '!clear; python' shellescape(@%, 1)<CR>
+" -------------- COC Config --------------
 
 " TextEdit might fail if hidden is not set.
 set hidden
