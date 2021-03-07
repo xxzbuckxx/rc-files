@@ -1,9 +1,19 @@
-#       .__                          
-# ___  _|__| _____   _______   ____  
-# \  \/ /  |/     \  \_  __ \_/ ___\ 
-#  \   /|  |  Y Y  \  |  | \/\  \___ 
-#   \_/ |__|__|_|  /  |__|    \___  >
-#                \/               \/ 
+"  _ _ _ _ _ _ _
+" |  - - - -    |
+" | |      / /| |    Zack Traczyk (zbuck)
+" | |   / /   | |       
+" | |/ / _ _ _| |    http://zacktraczyk.com
+" |  _ _   _ _  |    https://github.com/xxzbuckxx
+" | |_ _| |_ _| |
+" |_ _ _ _ _ _ _|
+"
+" Customized congfig for vim (https://www.vim.org/)
+"
+" -- SETUP --
+" Install coc.nvim (https://github.com/neoclide/coc.nvim)
+" Add Vim Plug into .vim/autoload (https://github.com/junegunn/vim-plug)
+" Create .vim/plugged directory
+" Source and run :PlugInstall
 
 " -------------- Plugins --------------
 
@@ -40,12 +50,15 @@ Plug 'vim-airline/vim-airline-themes'
 " Highlight after yank
 Plug 'machakann/vim-highlightedyank'
 
+" Goyo
+Plug 'junegunn/goyo.vim'
+
 call plug#end()
  
 " -------------- Buffer Config  --------------
 syntax on
 
-let mapleader =" "
+let mapleader=" "
 
 set tabstop=4 softtabstop=4
 set shiftwidth=4
@@ -61,6 +74,10 @@ set incsearch
 set splitbelow 
 set encoding=utf-8
 
+" No beep/flash
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+
 " Colorscheme
 colorscheme codedark
 let g:airline_theme='minimalist'
@@ -70,6 +87,9 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Goyo
+map <leader>gy :Goyo<CR>
 
 " -------------- Language Specific Config --------------
 
@@ -85,6 +105,9 @@ au BufNewFile,BufRead *.py
 " Runs Python Code in Terminal
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!clear; python' shellescape(@%, 1)<CR>
 
+" Highlight after 80 lines
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
 
     " Javascript
 
@@ -257,3 +280,4 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
