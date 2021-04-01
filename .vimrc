@@ -146,6 +146,10 @@ let g:vimwiki_list = [wiki]
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
+" Spell Check and auto-completion
+autocmd FileType markdown setlocal spell
+autocmd FileType markdown setlocal complete+=kspell
+
 " -------------- COC Config --------------
 
 " TextEdit might fail if hidden is not set.
