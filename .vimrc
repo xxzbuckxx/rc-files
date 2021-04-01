@@ -53,6 +53,9 @@ Plug 'machakann/vim-highlightedyank'
 " Goyo
 Plug 'junegunn/goyo.vim'
 
+" vimwiki - notetaking
+Plug 'vimwiki/vimwiki'
+
 call plug#end()
  
 " -------------- Buffer Config  --------------
@@ -74,6 +77,10 @@ set incsearch
 set splitbelow 
 set encoding=utf-8
 
+" For vimwiki
+set nocompatible
+filetype plugin on
+
 " No beep/flash
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
@@ -93,6 +100,24 @@ map <leader>gy :Goyo<CR>
 
 " -------------- Language Specific Config --------------
 
+	" C
+
+au BufNewFile,BufRead *.c
+    \ set expandtab       |" replace tabs with spaces
+    \ set autoindent      |" copy indent when starting a new line
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+
+
+    " HTML/CSS/JS
+
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+
+
     " Python
 
 au BufNewFile,BufRead *.py
@@ -109,13 +134,17 @@ autocmd FileType python map <buffer> <F9> :w<CR>:exec '!clear; python' shellesca
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
-    " Javascript
 
-au BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
+" --------------- Vim Wiki ---------------
 
+" Code Syntax highlighting
+let wiki = {}
+let wiki.nested_syntaxes = {'python': 'python', 'c': 'c'}
+let g:vimwiki_list = [wiki]
+
+" Syntax to Markdown
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " -------------- COC Config --------------
 
@@ -280,4 +309,3 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
