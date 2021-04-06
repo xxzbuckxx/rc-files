@@ -131,8 +131,8 @@ au BufNewFile,BufRead *.py
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!clear; python' shellescape(@%, 1)<CR>
 
 " Highlight after 80 lines
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+autocmd FileType python match OverLength /\%81v.\+/
 
 
 " --------------- Vim Wiki ---------------
@@ -149,6 +149,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 " Spell Check and auto-completion
 autocmd FileType markdown setlocal spell
 autocmd FileType markdown setlocal complete+=kspell
+autocmd FileType markdown setlocal wrap
 
 " -------------- COC Config --------------
 
