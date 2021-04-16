@@ -56,6 +56,9 @@ Plug 'junegunn/goyo.vim'
 " vimwiki - notetaking
 Plug 'vimwiki/vimwiki'
 
+" LaTeX Plugin
+Plug 'lervag/vimtex'
+
 call plug#end()
  
 " -------------- Buffer Config  --------------
@@ -150,6 +153,12 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 autocmd FileType markdown setlocal spell
 autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType markdown setlocal wrap
+
+
+" ---------------- LaTeX -----------------
+
+let g:airline#extensions#vimtex#enabled = 1
+
 
 " -------------- COC Config --------------
 
@@ -314,3 +323,4 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
