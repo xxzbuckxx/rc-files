@@ -90,7 +90,7 @@ autocmd GUIEnter * set visualbell t_vb=
 
 " Colorscheme
 colorscheme codedark
-let g:airline_theme='minimalist'
+let g:airline_theme='bubblegum'
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
