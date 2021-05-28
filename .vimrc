@@ -56,7 +56,7 @@ Plug 'junegunn/goyo.vim'
 " vimwiki - notetaking
 Plug 'vimwiki/vimwiki'
 
-" LaTeX Plugin
+" vimtex - LaTeX
 Plug 'lervag/vimtex'
 
 call plug#end()
@@ -64,7 +64,8 @@ call plug#end()
 " -------------- Buffer Config  --------------
 syntax on
 
-let mapleader=" "
+let mapleader="\<space>"
+let maplocalleader="\<space>"
 
 set tabstop=4 softtabstop=4
 set shiftwidth=4
@@ -134,11 +135,11 @@ au BufNewFile,BufRead *.py
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!clear; python' shellescape(@%, 1)<CR>
 
 " Highlight after 80 lines
-autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-autocmd FileType python match OverLength /\%81v.\+/
+autocmd FileType python, tex, latex, highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+autocmd FileType python, tex, latex, match OverLength /\%81v.\+/
 
 
-" --------------- Vim Wiki ---------------
+" ------------ Vim Wiki/ TeX -------------
 
 " Code Syntax highlighting
 let wiki = {}
@@ -149,15 +150,13 @@ let g:vimwiki_list = [wiki]
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
+" default TeX as LaTeX
+let g:tex_flavor = "latex"
+
 " Spell Check and auto-completion
 autocmd FileType markdown setlocal spell
 autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType markdown setlocal wrap
-
-
-" ---------------- LaTeX -----------------
-
-let g:airline#extensions#vimtex#enabled = 1
 
 
 " -------------- COC Config --------------
@@ -323,4 +322,3 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
