@@ -163,8 +163,8 @@ au BufNewFile,BufRead *.py
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!clear; python' shellescape(@%, 1)<CR>
 
 " Highlight after 80 lines
-autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-autocmd FileType python match OverLength /\%81v.\+/
+autocmd FileType python,tex,latex, highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+autocmd FileType python,tex,latex, match OverLength /\%81v.\+/
 
 
 " ------------ Vim Wiki/ TeX -------------
