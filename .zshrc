@@ -1,4 +1,3 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -79,7 +78,7 @@ ZSH_DISABLE_COMPFIX="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker docker-compose extract node npm osx urltools web-search z)
+plugins=(git docker docker-compose extract node npm osx urltools web-search z zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,11 +107,28 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias activate="source venv/bin/activate"
+alias sshUb="vboxmanage startvm --type headless \"Ubuntu LTS\" && ssh -p 2222 ubuntu@127.0.0.1"
+alias closevm="vboxmanage controlvm \"Ubuntu LTS\" savestate"
+alias portfolio="ssh root@207.246.113.78"
+
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/ztraczyk/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/ztraczyk/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/ztraczyk/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/ztraczyk/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
-export FZF_DEFAULT_OPTS=‘—height=40% —preview=“cat {}” —preview-window=right:60%:wrap’

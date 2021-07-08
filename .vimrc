@@ -1,6 +1,72 @@
+"  _ _ _ _ _ _ _
+" |  - - - -    |
+" | |      / /| |    Zack Traczyk (zbuck)
+" | |   / /   | |
+" | |/ / _ _ _| |    http://zacktraczyk.com
+" |  _ _   _ _  |    https://github.com/xxzbuckxx
+" | |_ _| |_ _| |
+" |_ _ _ _ _ _ _|
+"
+" Customized congfig for vim (https://www.vim.org/)
+"
+" -- SETUP --
+" Install coc.nvim (https://github.com/neoclide/coc.nvim)
+" Add Vim Plug into .vim/autoload (https://github.com/junegunn/vim-plug)
+" Create .vim/plugged directory
+" Source and run :PlugInstall
+
+" -------------- Plugins --------------
+
+call plug#begin('~/.vim/plugged')
+
+" Git Wrapper
+Plug 'tpope/vim-fugitive'
+
+" Universal Vim Defaults
+Plug 'tpope/vim-sensible'
+
+" Comment (gcc)
+Plug 'tpope/vim-commentary'
+
+" Conquer of Completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" PEP8 Python indentation
+Plug 'vim-scripts/indentpython.vim'
+
+" Javascript syntax
+Plug 'maksimr/vim-jsbeautify'
+Plug 'maxmellon/vim-jsx-pretty'
+
+" Startify UI
+Plug 'mhinz/vim-startify'
+
+" VS Code looking theme
+Plug 'tomasiser/vim-code-dark'
+
+" Vim airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Highlight after yank
+Plug 'machakann/vim-highlightedyank'
+
+" Goyo
+Plug 'junegunn/goyo.vim'
+
+" vimwiki - notetaking
+Plug 'vimwiki/vimwiki'
+
+" vimtex - LaTeX
+Plug 'lervag/vimtex'
+
+call plug#end()
+
+" -------------- Buffer Config  --------------
 syntax on
 
-let mapleader =" "
+let mapleader="\<space>"
+let maplocalleader="\<space>"
 
 set tabstop=4 softtabstop=4
 set shiftwidth=4
@@ -13,30 +79,78 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
+set splitbelow
+set encoding=utf-8
 
-call plug#begin('~/.vim/plugged')
-Plug 'HenryNewcomer/vim-theme-papaya'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-commentary'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'vim-scripts/indentpython.vim'
-" Plug 'vim-syntastic/syntastic'
-Plug 'mhinz/vim-startify'
-Plug 'tomasiser/vim-code-dark'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-call plug#end()
- 
+" For vimwiki
+set nocompatible
+filetype plugin on
+
+" No beep/flash
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+
+" Colorscheme
 colorscheme codedark
-
-let g:airline_theme='minimalist'
+let g:airline_theme='bubblegum'
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Jump Buffer
+nnoremap <leader>h :bp<CR>
+nnoremap <leader>l :bn<CR>
+
+" Goyo
+map <leader>gy :Goyo<CR>
+
+" Jump to placeholder
+nnoremap <space><space> <Esc>/<++><Enter>"_c4l
+
+" Autocomplete braces
+inoremap {<cr> {<cr>}<esc>O
+
+
+" -------------- Language Specific Config --------------
+
+" Automatically deletes all trailing whitespace and newlines at end of file on save.
+	autocmd BufWritePre * %s/\s\+$//e
+	autocmd BufWritePre * %s/\n\+\%$//e
+	autocmd BufWritePre *.[ch] %s/\%$/\r/e
+
+	" C
+
+au BufNewFile,BufRead *.c
+    \ set expandtab       |" replace tabs with spaces
+    \ set autoindent      |" copy indent when starting a new line
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+
+
+    " HTML/CSS/JS
+
+au BufNewFile,BufRead *.js
+    \ set expandtab       |" replace tabs with spaces
+    \ set autoindent      |" copy indent when starting a new line
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+
+" React component shortcut
+au Filetype javascript nnoremap ;c
+    \ iimport<space>React<space>from<space>'react';
+    \ <cr><cr>function(<++>)<space>{<cr>
+    \ <BS>return<space>(<cr>
+    \ <BS><++><cr>
+    \ <BS>);<cr>
+    \ <BS>}<cr><cr>
+    \ <BS>export default <++>;<esc>6kF(i |")
+
+    " Python
 
 au BufNewFile,BufRead *.py
     \ set expandtab       |" replace tabs with spaces
@@ -45,26 +159,35 @@ au BufNewFile,BufRead *.py
     \ set softtabstop=4
     \ set shiftwidth=4
 
-" coc Autocomplete
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-au BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-
-set encoding=utf-8
-
-" Splits to Bottom
-set splitbelow 
-
 " Runs Python Code in Terminal
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!clear; python' shellescape(@%, 1)<CR>
+
+" Highlight after 80 lines
+autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+autocmd FileType python match OverLength /\%81v.\+/
+
+
+" ------------ Vim Wiki/ TeX -------------
+
+" Code Syntax highlighting
+let wiki = {}
+let wiki.nested_syntaxes = {'python': 'python', 'c': 'c'}
+let g:vimwiki_list = [wiki]
+
+" Syntax to Markdown
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" default TeX as LaTeX
+let g:tex_flavor = "latex"
+
+" Spell Check and auto-completion
+autocmd FileType markdown setlocal spell
+autocmd FileType markdown setlocal complete+=kspell
+autocmd FileType markdown setlocal wrap
+
+
+" -------------- COC Config --------------
 
 " TextEdit might fail if hidden is not set.
 set hidden
