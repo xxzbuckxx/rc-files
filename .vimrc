@@ -31,6 +31,10 @@ Plug 'tpope/vim-commentary'
 " Conquer of Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" FZF
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 " PEP8 Python indentation
 Plug 'vim-scripts/indentpython.vim'
 
@@ -113,13 +117,16 @@ nnoremap <space><space> <Esc>/<++><Enter>"_c4l
 " Autocomplete braces
 inoremap {<cr> {<cr>}<esc>O
 
+" Automatically deletes all trailing whitespace and newlines at end of file on save.
+autocmd BufWritePre * %s/\s\+$//e
+autocmd BufWritePre * %s/\n\+\%$//e
+autocmd BufWritePre *.[ch] %s/\%$/\r/e
 
 " -------------- Language Specific Config --------------
 
-" Automatically deletes all trailing whitespace and newlines at end of file on save.
-	autocmd BufWritePre * %s/\s\+$//e
-	autocmd BufWritePre * %s/\n\+\%$//e
-	autocmd BufWritePre *.[ch] %s/\%$/\r/e
+	" Groff
+
+autocmd BufWritePost *.ms !groff -ms -rPS=12 -U -T pdf % > %:r.pdf
 
 	" C
 
@@ -140,15 +147,6 @@ au BufNewFile,BufRead *.js
     \ set softtabstop=2
     \ set shiftwidth=2
 
-" React component shortcut
-au Filetype javascript nnoremap ;c
-    \ iimport<space>React<space>from<space>'react';
-    \ <cr><cr>function(<++>)<space>{<cr>
-    \ <BS>return<space>(<cr>
-    \ <BS><++><cr>
-    \ <BS>);<cr>
-    \ <BS>}<cr><cr>
-    \ <BS>export default <++>;<esc>6kF(i |")
 
     " Python
 
@@ -162,9 +160,12 @@ au BufNewFile,BufRead *.py
 " Runs Python Code in Terminal
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!clear; python' shellescape(@%, 1)<CR>
 
+" Set spell
+autocmd FileType text,latex,nroff,markdown set spell
+
 " Highlight after 80 lines
-autocmd FileType python,tex,latex, highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-autocmd FileType python,tex,latex, match OverLength /\%81v.\+/
+autocmd FileType python,tex,latex,nroff highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+autocmd FileType python,tex,latex,nroff match OverLength /\%81v.\+/
 
 
 " ------------ Vim Wiki/ TeX -------------
