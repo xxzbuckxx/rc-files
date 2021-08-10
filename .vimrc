@@ -45,8 +45,8 @@ Plug 'maxmellon/vim-jsx-pretty'
 " Startify UI
 Plug 'mhinz/vim-startify'
 
-" VS Code looking theme
-Plug 'tomasiser/vim-code-dark'
+" Color scheme
+Plug 'wadackel/vim-dogrun'
 
 " Vim airline
 Plug 'vim-airline/vim-airline'
@@ -95,8 +95,8 @@ set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
 
 " Colorscheme
-colorscheme codedark
-let g:airline_theme='bubblegum'
+colorscheme dogrun
+let g:airline_theme='behelit'
 
 "split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -183,9 +183,9 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 let g:tex_flavor = "latex"
 
 " Spell Check and auto-completion
-autocmd FileType markdown setlocal spell
-autocmd FileType markdown setlocal complete+=kspell
-autocmd FileType markdown setlocal wrap
+autocmd FileType markdown,tex,latex,nroff setlocal spell
+autocmd FileType markdown,tex,latex,nroff setlocal complete+=kspell
+autocmd FileType markdown,tex,latex,nroff setlocal wrap
 
 
 " -------------- COC Config --------------
