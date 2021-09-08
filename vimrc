@@ -15,9 +15,17 @@
 " Create .vim/plugged directory
 " Source and run :PlugInstall
 
+" Move Dotfiles to .config
+set directory=$CACHE/vim,~/,/tmp
+set backupdir=$CACHE/vim,~/,/tmp
+set viminfo+=n.cache/vim/viminfo
+set runtimepath=$HOME/.config/vim,$HOME/.config/vim/after,$VIM,$VIMRUNTIME
+let $MYVIMRC="$HOME/3 Resources/dotfiles/vimrc"
+
 " -------------- Plugins --------------
 
-call plug#begin('~/.vim/plugged')
+
+call plug#begin('$HOME/.cache/vim/plugged')
 
 " Git Wrapper
 Plug 'tpope/vim-fugitive'
@@ -46,7 +54,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mhinz/vim-startify'
 
 " Color scheme
-Plug 'wadackel/vim-dogrun'
+Plug 'sainnhe/everforest'
 
 " Vim airline
 Plug 'vim-airline/vim-airline'
@@ -87,7 +95,7 @@ set splitbelow
 set encoding=utf-8
 
 " For vimwiki
-set nocompatible
+if &compatible | set nocompatible | endif " Avoid side effects if `nocp` already set
 filetype plugin on
 
 " No beep/flash
@@ -95,10 +103,24 @@ set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
 
 " Colorscheme
-colorscheme dogrun
-let g:airline_theme='behelit'
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
-"split navigations
+set background=dark
+let g:everforest_background = 'hard'
+let g:everforest_transparent_background = 1
+let g:everforest_diagnostic_text_highlight = 1
+let g:everforest_diagnostic_line_highlight = 1
+let g:everforest_current_word = 'bold'
+let g:everforest_enable_italic = 1
+
+colorscheme everforest
+let g:airline_theme='everforest'
+
+" split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -117,10 +139,8 @@ nnoremap <space><space> <Esc>/<++><Enter>"_c4l
 " Autocomplete braces
 inoremap {<cr> {<cr>}<esc>O
 
-" Automatically deletes all trailing whitespace and newlines at end of file on save.
-autocmd BufWritePre * %s/\s\+$//e
-autocmd BufWritePre * %s/\n\+\%$//e
-autocmd BufWritePre *.[ch] %s/\%$/\r/e
+" Resfresh dwmblocks when config edited
+autocmd BufWritePost ~/.config/suckless/dwmblocks/blocks.h !cd ~/Software/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
 
 " -------------- Language Specific Config --------------
 
