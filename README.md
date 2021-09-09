@@ -1,6 +1,6 @@
 # Mac Run Command Files
 
-Here are the rc files for a few of the tools I use on my mac
+Here are the config files for a few of the tools I use on my macOS and GNU/Linux
 
 ## Vim
 
