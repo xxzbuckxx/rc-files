@@ -19,5 +19,5 @@ export LESSHISTFILE="-"
 export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc"
 export PYLINTHOME="$HOME/.config/pylint"
 export PYTHONSTARTUP="$HOME/.config/pythonrc.py"
-export VIMINIT='let $MYVIMRC="$HOME/3 Resources/dotfiles/vimrc" | source $MYVIMRC'
+export VIMINIT='let $MYVIMRC="$HOME/.config/vim/vimrc" | source $MYVIMRC'
 export ZDOTDIR="$HOME/.config/zsh"
