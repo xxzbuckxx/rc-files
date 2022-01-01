@@ -12,13 +12,8 @@
 " -- SETUP --
 " Install coc.nvim (https://github.com/neoclide/coc.nvim)
 " Add Vim Plug into .vim/autoload (https://github.com/junegunn/vim-plug)
-" Create .vim/plugged directory
+" Create ~/.vim/plugged directory
 " Source % and :PlugInstall
-
-" Move Dotfiles to .config and .cache
-set directory=$CACHE/vim,~/,/tmp
-set backupdir=$CACHE/vim,~/,/tmp
-set viminfo+=n.cache/vim/viminfo
 
 " -------------- Plugins --------------
 
