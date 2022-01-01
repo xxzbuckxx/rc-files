@@ -16,5 +16,5 @@ Here are the config files for a few of the tools I use on my macOS and GNU/Linux
 
 ## Something to Note
 
-My colorscheme is setup to work with tmux and Iterm2, to change colorscheme or fix any errors that might come up with displaying, remove lines 101-109 in vimrc
+My colorscheme is setup to work with tmux and Iterm2, to change colorscheme or fix any errors that might come up with displaying, remove lines 106-113 in vimrc
 
