@@ -70,6 +70,12 @@ Plug 'vimwiki/vimwiki'
 " vimtex - LaTeX
 Plug 'lervag/vimtex'
 
+" ORG-MODE
+Plug 'jceb/vim-orgmode'
+
+" Taglist
+Plug 'yegappan/taglist'
+
 call plug#end()
 
 " -------------- Buffer Config  --------------
@@ -117,7 +123,6 @@ let g:airline_theme='everforest'
 " let g:gruvbox_contrast_dark='hard'
 " let g:airline_theme=gruvbox
 
-
 "split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -149,7 +154,7 @@ map <leader>ff :FZF<CR>
 
 	" Groff
 
-autocmd BufWritePost *.ms !groff -ms -rPS=12 -U -T pdf % > %:r.pdf
+autocmd BufWritePost *.ms silent !groff -ms -rPS=12 -U -T pdf % > %:r.pdf
 
 	" C
 
