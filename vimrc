@@ -71,6 +71,9 @@ Plug 'jceb/vim-orgmode'
 " Taglist
 Plug 'yegappan/taglist'
 
+" Pico-8
+Plug 'Bakudankun/PICO-8.vim'
+
 call plug#end()
 
 " -------------- Buffer Config  --------------
@@ -94,6 +97,13 @@ set incsearch
 " For vimwiki
 set nocompatible
 filetype plugin on
+
+" Save/Load Folds
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave *.* mkview
+  autocmd BufWinEnter *.* silent! loadview
+augroup END
 
 " No beep/flash
 set noerrorbells visualbell t_vb=
@@ -131,6 +141,9 @@ nnoremap <leader>l :bn<CR>
 " Jump to placeholder
 nnoremap <space><space> <Esc>/<++><Enter>"_c4l
 
+" FZF - Search Files
+map <leader>ff :FZF<CR>
+
 " Autocomplete braces
 inoremap {<cr> {<cr>}<esc>O
 
@@ -141,9 +154,6 @@ inoremap {<cr> {<cr>}<esc>O
 
 " Goyo
 map <leader>gy :Goyo<CR>
-
-" FZF
-map <leader>ff :FZF<CR>
 
 " -------------- Language Specific Config --------------
 
@@ -160,6 +170,10 @@ au BufNewFile,BufRead *.c
     \ set softtabstop=4
     \ set shiftwidth=4
 
+augroup project
+  autocmd!
+  autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+augroup END
 
     " HTML/CSS/JS
 
