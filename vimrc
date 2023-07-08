@@ -85,7 +85,7 @@ let maplocalleader="\<space>"
 set tabstop=4 softtabstop=4
 set shiftwidth=4
 set smartindent
-set nu
+set nu rnu
 set nowrap
 set smartcase
 set noswapfile
@@ -121,6 +121,7 @@ let g:everforest_transparent_background = 1
 let g:everforest_diagnostic_text_highlight = 1
 let g:everforest_diagnostic_line_highlight = 1
 let g:everforest_current_word = 'bold'
+set background=dark
 colorscheme everforest
 let g:airline_theme='everforest'
 
@@ -139,7 +140,7 @@ nnoremap <leader>h :bp<CR>
 nnoremap <leader>l :bn<CR>
 
 " Jump to placeholder
-nnoremap <space><space> <Esc>/<++><Enter>"_c4l
+nnoremap <space><space> <Esc>/<++><Enter>
 
 " FZF - Search Files
 map <leader>ff :FZF<CR>
@@ -177,7 +178,7 @@ augroup END
 
     " HTML/CSS/JS
 
-au BufNewFile,BufRead *.js
+au FileType javascript
     \ set expandtab       |" replace tabs with spaces
     \ set autoindent      |" copy indent when starting a new line
     \ set tabstop=2
